@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Your Name <you@yourhost.com>
+ * Copyright 2017 Mert Can Cetinkaya <ghasrany@gmail.com>
  *
  * @brief Description of My Awesome Game.
  *
@@ -15,7 +15,7 @@
  */
 #include <rt2d/core.h>
 
-#include "myscene.h"
+#include "level.h"
 
 /// @brief main entry point
 int main( void )

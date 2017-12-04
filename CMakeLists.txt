@@ -49,8 +49,16 @@ endif(UNIX)
 
 
 if(WIN32)
-	# suppress pedantic warnings
-	add_definitions( "/W1 /D_CRT_SECURE_NO_WARNINGS /wd4514 /nologo" )
+	# On Visual 2005 and above, this module can set the debug working directory
+	list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/external/rpavlik-cmake-modules-1c73e35")
+	include(CreateLaunchers)
+	include(MSVCMultipleProcessCompile) # /MP
+
+	if(MINGW)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+	ELSE(MINGW)
+		add_definitions( "/W1 /D_CRT_SECURE_NO_WARNINGS /wd4514 /nologo" ) # suppress pedantic warnings
+	endif(MINGW)
 endif(WIN32)
 
 
@@ -148,10 +156,29 @@ file(
 IF(MAKE_START)
 	add_executable(start
 		start/main.cpp
-		start/myentity.cpp
-		start/myentity.h
-		start/myscene.cpp
-		start/myscene.h
+		start/player.cpp
+		start/player.h
+		start/level.cpp
+		start/level.h
+		start/key.cpp
+		start/key.h		
+		start/door.cpp
+		start/door.h
+		start/inventory.cpp
+		start/inventory.h
+		start/enemy.cpp
+		start/enemy.h
+		start/item.cpp
+		start/item.h
+		start/timer.cpp
+		start/timer.h
+		start/movingplatform.cpp
+		start/movingplatform.h
+		start/platformlevel.cpp
+		start/platformlevel.h
+		start/tile.cpp
+		start/tile.h
+
 	)
 	target_link_libraries(start
 		${ALL_GRAPHICS_LIBS}
