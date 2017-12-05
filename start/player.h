@@ -10,6 +10,7 @@
 #define PLAYER_H
 
 #include <rt2d/entity.h>
+#include <vector>
 
 /// @brief The MyEntity class is the Entity implementation.
 class MyPlayer : public Entity
@@ -28,8 +29,8 @@ public:
 private:
 	/* add your private declarations */
 
-	Point2 speed;
-	int jumpheight;
+	Point2 velocity;
+	Point2 jumpheight;
 	int gravity;
 	int health;
 };

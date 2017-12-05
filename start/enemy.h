@@ -28,7 +28,7 @@ public:
 private:
 	/* add your private declarations */
 
-	int speed;
+	Point2 speed;
 	int gravity;
 };
 
