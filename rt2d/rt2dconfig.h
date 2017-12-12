@@ -19,12 +19,12 @@
 
 
 // screenwidth, screenheight
-#define SWIDTH 1280 ///< The screen width
+#define SWIDTH 1024 ///< The screen width
 #define SHEIGHT 720 ///< The screen height
 
 #define FULLSCREEN 0 ///< Fullscreen or not
 
-#define WINDOWNAME "RT2D" ///< The window name
+#define WINDOWNAME "Mert2d" ///< The window name
 
 #define CLEARCOLOR_RED 0.1f ///< The red component of the color of the window
 #define CLEARCOLOR_GREEN 0.1f ///< The green component of the color of the window

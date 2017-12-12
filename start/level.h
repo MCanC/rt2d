@@ -6,8 +6,8 @@
  * @brief description of MyScene behavior.
  */
 
-#ifndef MYSCENE_H
-#define MYSCENE_H
+#ifndef LEVEL_H
+#define LEVEL_H
 
 #include <rt2d/scene.h>
 
@@ -37,4 +37,4 @@ private:
 	Timer t;
 };
 
-#endif /* SCENE00_H */
+#endif /* LEVEL_H */

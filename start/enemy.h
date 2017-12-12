@@ -28,9 +28,9 @@ public:
 private:
 	/* add your private declarations */
 
-	Point2 speed;
+	Vector2 speed;
 	int gravity;
 };
 
-#endif /* MYENTITY_H */
+#endif /* ENEMY_H */
 #pragma once

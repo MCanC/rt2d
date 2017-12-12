@@ -29,10 +29,12 @@ public:
 private:
 	/* add your private declarations */
 
-	Point2 velocity;
-	Point2 jumpheight;
-	int gravity;
-	int health;
+	Vector2 velocity;
+	Vector2 acceleration;
+	Vector2 gravity;
+	float health;
+	float speed;
+	bool onGround;
 };
 
-#endif /* MYENTITY_H */
+#endif /* PLAY_H */
