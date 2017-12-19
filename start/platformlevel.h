@@ -14,8 +14,8 @@ public:
 	PlatformLevel();
 	virtual ~PlatformLevel();
 	void createTile(std::string texturePath, Point2 position, Point2 scale);
+	std::vector<Tile*> tiles;
 private:
-	std::vector<Tile*> Tiles;
 
 };
 

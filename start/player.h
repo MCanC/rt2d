@@ -11,30 +11,29 @@
 
 #include <rt2d/entity.h>
 #include <vector>
+#include "inventory.h"
 
-/// @brief The MyEntity class is the Entity implementation.
 class MyPlayer : public Entity
 {
 public:
-	/// @brief Constructor
+
 	MyPlayer();
-	/// @brief Destructor
+
 	virtual ~MyPlayer();
 
-	/// @brief update is automatically called every frame
-	/// @param deltaTime the elapsed time in seconds
-	/// @return void
 	virtual void update(float deltaTime);
 
-private:
-	/* add your private declarations */
-
+	MyInventory* myinventory;
 	Vector2 velocity;
 	Vector2 acceleration;
 	Vector2 gravity;
 	float health;
 	float speed;
+	float jumpheight;
 	bool onGround;
+
+private:
+
 };
 
-#endif /* PLAY_H */
+#endif /* PLAYER_H */

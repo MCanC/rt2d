@@ -1,17 +1,11 @@
-/**
- * This class describes MyScene behavior.
- *
- * Copyright 2015 Your Name <you@yourhost.com>
- */
 
 #include <fstream>
 #include <sstream>
 
 #include "level.h"
 
-MyScene::MyScene() : PlatformLevel()
-{
-	// start the timer.
+Level::Level() : PlatformLevel() {
+	
 	t.start();
 	this->addSprite("assets/BackGround.tga");
 	this->position = Point2(512, 256);
@@ -23,40 +17,63 @@ MyScene::MyScene() : PlatformLevel()
 	this->createTile("assets/MiddleNormal.tga", Point2(156, 400), Point2(1, 1));
 	this->createTile("assets/MiddleNormal.tga", Point2(284, 400), Point2(1, 1));
 	this->createTile("assets/CornerNormalRight.tga", Point2(302, 400), Point2(1, 1));
-	// create a single instance of MyEntity in the middle of the screen.
-	// the Sprite is added in Constructor of MyEntity.
+
 	myplayer = new MyPlayer();
-	myplayer->position = Point2(200, 305);
+	myplayer->position = Point2(20, 305);
 	myenemy = new MyEnemy();
-	myenemy->position = Point2(SWIDTH/2, 313);
-	
-	// create the scene 'tree'
-	// add myentity to this Scene as a child.
+	myenemy->position = Point2(SWIDTH / 2, 313);
+
 	this->addChild(myenemy);
 	this->addChild(myplayer);
 
-
 }
 
 
-MyScene::~MyScene()
-{
-	// deconstruct and delete the Tree
+Level::~Level() {
+
 	this->removeChild(myplayer);
+	this->removeChild(myenemy);
 
-	// delete myentity from the heap (there was a 'new' in the constructor)
 	delete myplayer;
+	delete myenemy;
 
 }
 
-void MyScene::update(float deltaTime)
-{
-	// ###############################################################
-	// Escape key stops the Scene
-	// ###############################################################
+bool Level::collideCheck(Entity*a, Entity*b) {
+
+	int ahalfwidth = a->sprite()->size.x / 2;
+	int bhalfwidth = b->sprite()->size.x / 2;
+	int ahalfheight = a->sprite()->size.y / 2;
+	int bhalfheight = b->sprite()->size.y / 2;
+
+	float aTop = a->position.y - ahalfheight;
+	float aBottom = a->position.y + ahalfheight;
+	float aRight = a->position.x + ahalfwidth;
+	float aLeft = a->position.x - ahalfwidth;
+
+	float bTop = b->position.y - bhalfheight;
+	float bBottom = b->position.y + bhalfheight;
+	float bRight = b->position.x + bhalfwidth;
+	float bLeft = b->position.x - bhalfwidth;
+
+	if (aBottom > bTop) {
+		std::cout << "YOU HIT THE TILE" << std::endl;
+		return true;
+	}
+
+	return false;
+}
+
+void Level::update(float deltaTime) {
+
 	if (input()->getKeyUp(KeyCode::Escape)) {
 		this->stop();
 	}
+	std::cout << myplayer->position << std::endl;
 
-	//camera()->position.x = myplayer->position.x + 100;
+	for (int i = 0; i < tiles.size(); i++) {
+		if (collideCheck(myplayer, tiles[i])) {
+			myplayer->position.y =  (tiles[i]->position.y - (tiles[i]->sprite()->size.y / 2)) - (myplayer->sprite()->size.y /2);
+		}
+	} 
 }

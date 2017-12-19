@@ -1,58 +1,53 @@
-/**
- * This class describes MyEntity behavior.
- *
- * Copyright 2015 Your Name <you@yourhost.com>
- */
 
 #include "player.h"
 
-MyPlayer::MyPlayer() : Entity()
-{
-	this->addSprite("assets/Player.tga");
+MyPlayer::MyPlayer() : Entity() {
 
+	this->addSprite("assets/Player.tga");
 	velocity = Vector2(0, 0);
 	acceleration = Vector2(0, 0);
 	gravity = Vector2(0, 1);
 	health = 3.0f;
-	speed = 2.0f;
+	speed = 1.0f;
+	jumpheight = 1.0f;
 	onGround = true;
+
+	myinventory = new MyInventory();
 }
 
-MyPlayer::~MyPlayer()
-{
+MyPlayer::~MyPlayer() {
 
 }
 
-void MyPlayer::update(float deltaTime)
+bool isGrounded() {
 
-{
+	return true;
+}
+
+void MyPlayer::update(float deltaTime) {
+
 	velocity = Vector2(0, 0);
 	if (input()->getKey(KeyCode::A)){
-		this->position.x -= 1;
+		this->position.x -= speed;
 		this->rotation.y = 180 * DEG_TO_RAD;
 	} 
 	if (input()->getKey(KeyCode::D)){
-		this->position += 1;
+		this->position.x += speed;
 		this->rotation.y = 0;
 	}
-	if (input()->getKeyDown(KeyCode::LeftShift)) {
-		velocity.x += speed;
-	}
-	if (input()->getKeyUp(KeyCode::LeftShift)) {
-		velocity.x -= speed;
+	if (input()->getKeyDown(KeyCode::Space)) {
+		this->acceleration.y -= jumpheight;
 	}
 	if (this->position.y + this->gravity.y * deltaTime < 305) {
-		this->acceleration.y += this->gravity.y * deltaTime;
-	}
-	if (input()->getKeyDown(KeyCode::Space)) {
-		this->acceleration.y -= 1;
-	}
-	else {
-		this->position.y == 305;
+
+		this->acceleration.y += this->gravity.y * deltaTime; 
+
+		std::cout << "Yo, gravity is pulling you" << std::endl;
 	}
 	this->velocity += acceleration;
-	this->velocity.limit(2);
+	this->velocity.limit(1);
 	this->position += this->velocity;
 
 	std::cout << this->position << std::endl;
+	
 }
