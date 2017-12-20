@@ -17,6 +17,7 @@ Level::Level() : PlatformLevel() {
 	this->createTile("assets/MiddleNormal.tga", Point2(156, 400), Point2(1, 1));
 	this->createTile("assets/MiddleNormal.tga", Point2(284, 400), Point2(1, 1));
 	this->createTile("assets/CornerNormalRight.tga", Point2(302, 400), Point2(1, 1));
+	this->createTile("assets/MiddleNormal.tga", Point2(450, 200), Point2(1, 1));
 
 	myplayer = new MyPlayer();
 	myplayer->position = Point2(20, 305);
@@ -25,6 +26,7 @@ Level::Level() : PlatformLevel() {
 
 	this->addChild(myenemy);
 	this->addChild(myplayer);
+	
 
 }
 
@@ -56,13 +58,13 @@ bool Level::collideCheck(Entity*a, Entity*b) {
 	float bRight = b->position.x + bhalfwidth;
 	float bLeft = b->position.x - bhalfwidth;
 
-	if (aBottom > bTop) {
+	if (aRight > bLeft && aBottom > bTop && aLeft < bRight) {
 		std::cout << "YOU HIT THE TILE" << std::endl;
 		return true;
 	}
-
 	return false;
 }
+
 
 void Level::update(float deltaTime) {
 
@@ -73,7 +75,10 @@ void Level::update(float deltaTime) {
 
 	for (int i = 0; i < tiles.size(); i++) {
 		if (collideCheck(myplayer, tiles[i])) {
-			myplayer->position.y =  (tiles[i]->position.y - (tiles[i]->sprite()->size.y / 2)) - (myplayer->sprite()->size.y /2);
+			myplayer->position.y = (tiles[i]->position.y - (tiles[i]->sprite()->size.y / 2)) - (myplayer->sprite()->size.y /2);
+			myplayer->onGround = true;
+		} if (myplayer->position.y <= 100) {
+			myplayer->onGround = false;
 		}
 	} 
 }

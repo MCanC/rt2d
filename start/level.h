@@ -6,7 +6,8 @@
 
 #include "player.h"
 #include "enemy.h"
-#include "platformlevel.h"
+#include "platformlevel.h"'
+#include "line.h"
 
 class Level : public PlatformLevel 
 {
@@ -15,6 +16,8 @@ public:
 	Level();
 
 	virtual ~Level();
+
+	//bool colliding(Entity * a, Entity * b);
 
 	virtual void update(float deltaTime);
 

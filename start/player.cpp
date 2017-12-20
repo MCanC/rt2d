@@ -19,13 +19,25 @@ MyPlayer::~MyPlayer() {
 
 }
 
-bool isGrounded() {
+void MyPlayer::jump(float deltaTime) {
+	if (input()->getKeyDown(KeyCode::Space)) {
+		this->acceleration.y -= jumpheight;
+	}
+}
 
-	return true;
+void MyPlayer::pull(float deltaTime) {
+	if (this->position.y + this->gravity.y * deltaTime < 305) {
+
+		this->acceleration.y += this->gravity.y * deltaTime;
+
+		std::cout << "Yo, gravity is pulling you" << std::endl;
+	}
+
 }
 
 void MyPlayer::update(float deltaTime) {
 
+	pull(deltaTime);
 	velocity = Vector2(0, 0);
 	if (input()->getKey(KeyCode::A)){
 		this->position.x -= speed;
@@ -35,15 +47,14 @@ void MyPlayer::update(float deltaTime) {
 		this->position.x += speed;
 		this->rotation.y = 0;
 	}
-	if (input()->getKeyDown(KeyCode::Space)) {
-		this->acceleration.y -= jumpheight;
+	if (onGround == true) {
+		jump(deltaTime);
+		velocity.y = 0;
 	}
-	if (this->position.y + this->gravity.y * deltaTime < 305) {
+	else {
 
-		this->acceleration.y += this->gravity.y * deltaTime; 
-
-		std::cout << "Yo, gravity is pulling you" << std::endl;
 	}
+
 	this->velocity += acceleration;
 	this->velocity.limit(1);
 	this->position += this->velocity;

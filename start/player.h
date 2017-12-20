@@ -21,6 +21,9 @@ public:
 
 	virtual ~MyPlayer();
 
+	void jump(float deltaTime);
+	void pull(float deltaTime);
+
 	virtual void update(float deltaTime);
 
 	MyInventory* myinventory;
